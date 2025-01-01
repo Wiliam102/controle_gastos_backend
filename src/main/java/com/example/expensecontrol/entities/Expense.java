@@ -1,5 +1,6 @@
 package com.example.expensecontrol.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -21,7 +22,7 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double amount;
-    private Date date;
+    private LocalDate date;
     private String description;
     @ManyToOne
     @JoinColumn(name="categoria_id", nullable = false)
