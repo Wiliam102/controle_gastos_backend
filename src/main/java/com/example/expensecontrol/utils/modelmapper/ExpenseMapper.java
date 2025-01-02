@@ -1,10 +1,14 @@
 package com.example.expensecontrol.utils.modelmapper;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
 import com.example.expensecontrol.dtos.ExpenseDto;
 import com.example.expensecontrol.entities.Expense;
 
+import ch.qos.logback.core.subst.Token;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +20,11 @@ public class ExpenseMapper {
 
     public static ExpenseDto toDto(Expense expense){
         return new ModelMapper().map(expense, ExpenseDto.class);
+    }
+
+    public static List<ExpenseDto> listExpenseToDto(List<Expense> listExpense){
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(listExpense, new TypeToken<List<ExpenseDto>>() {}.getType());
     }
 
 }

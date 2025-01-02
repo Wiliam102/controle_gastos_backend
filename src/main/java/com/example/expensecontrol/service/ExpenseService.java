@@ -1,6 +1,9 @@
 package com.example.expensecontrol.service;
 
 import java.util.List;
+
+import org.springframework.dao.DataIntegrityViolationException;
+
 import com.example.expensecontrol.entities.Expense;
 import com.example.expensecontrol.repository.ExpenseRepository;
 
@@ -20,18 +23,17 @@ public class ExpenseService {
     // method to save a expense
     public Expense save(Expense expense){
         // here is checking to avoid duplications
-        if(!expenseRepository.existsByDescriptionAndDate(expense.getDescription(), expense.getDate())){
-            
-        return expenseRepository.save(expense);
+        if(expenseRepository.existsByDescriptionAndDate(expense.getDescription(), expense.getDate())){
+            throw new DataIntegrityViolationException("Os dados não podem ser duplicados");
         }
         else
-            return null;
+            return expenseRepository.save(expense);
     }
     @Transactional
     // method to update a expense
     public Expense update(Expense expenseUpdate, Long id){
         // here, it checks if the id is already saved in the database 
-        if(expenseRepository.existsById(id)){
+        if(!expenseRepository.existsById(id)){
             expenseUpdate.setId(id);
             return expenseRepository.save(expenseUpdate);
         }
@@ -43,7 +45,7 @@ public class ExpenseService {
     
     @Transactional
     public void delete(Long id){
-        delete(id);
+        expenseRepository.deleteById(id);
     }
 
 }

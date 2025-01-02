@@ -1,8 +1,6 @@
 package com.example.expensecontrol.dtos;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
