@@ -14,4 +14,6 @@ public class CategoryDto {
     @NotBlank(message = "A categoria não pode ser vazia.")
     private String name;
 
+    public CategoryDto(){}
+
 }

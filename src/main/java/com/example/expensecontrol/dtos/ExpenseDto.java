@@ -1,7 +1,10 @@
 package com.example.expensecontrol.dtos;
 
 import java.time.LocalDate;
-import jakarta.validation.constraints.Min;
+
+import com.example.expensecontrol.entities.Category;
+
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,17 +17,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExpenseDto {
     
-    @NotBlank(message = "O valor não pode ser vazio")
     @NotNull(message = "O valor não pode ser nulo")
-    @Min(value = 1, message = "O valor precisa ser maior ou igual a 1.")
+    @DecimalMin(value = "1.0", message = "O valor precisa ser maior ou igual a 1.")
     private Double amount;
     @NotBlank(message = "A data não pode ser vazia")
     @NotNull(message = "A data não pode ser nula")
     private LocalDate date;
-    @NotBlank(message = "A descricao não pode ser vazia")
     @NotBlank(message = "A descricao não pode ser nula")
     private String description;
-    @NotNull(message = "A cactegoria não pode ser vazia")
-    @NotBlank(message = "a categoria não pode ser nula")
-    private Long categoryId;
+    @NotNull(message = "A categoria não pode ser vazia")
+    private Category categoria;
+
+
+    public ExpenseDto(){}
 }

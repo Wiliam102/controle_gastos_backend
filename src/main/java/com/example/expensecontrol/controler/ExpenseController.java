@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.expensecontrol.dtos.ExpenseDto;
 import com.example.expensecontrol.service.ExpenseService;
 import com.example.expensecontrol.utils.modelmapper.ExpenseMapper;
+
 import com.example.expensecontrol.entities.Expense;
+
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -29,15 +32,17 @@ public class ExpenseController {
     private final ExpenseService expenseService;
 
     @GetMapping("/findall")
-    public ResponseEntity<List<ExpenseDto>> findall() {
-        List<ExpenseDto> lista = ExpenseMapper.listExpenseToDto(expenseService.findall());
+    public ResponseEntity<List<Expense>> findall() {
+        List<Expense> lista = expenseService.findall();
        
         return ResponseEntity.ok(lista);
 
     }
     @PostMapping("/save")
     public ResponseEntity<ExpenseDto> save(@RequestBody ExpenseDto expenseDto) {
-        Expense expense = ExpenseMapper.toExpense(expenseDto);
+        Expense expense =  ExpenseMapper.toExpense(expenseDto);
+
+        expense.setCategory(expenseDto.getCategoria());
         expenseService.save(expense);
         
         return ResponseEntity.ok(ExpenseMapper.toDto(expense));
@@ -46,8 +51,15 @@ public class ExpenseController {
     public ResponseEntity<ExpenseDto> update(@PathVariable Long id,@RequestBody ExpenseDto dto){
 
         Expense expense = ExpenseMapper.toExpense(dto);
+        
+        expense.setCategory(dto.getCategoria());
 
-        return ResponseEntity.ok(ExpenseMapper.toDto(expense));
+         expense = expenseService.update(expense,id);
+        ExpenseDto responseDto = ExpenseMapper.toDto(expense);
+
+         responseDto.setCategoria(expense.getCategory());
+
+        return ResponseEntity.ok(responseDto);
       
     }
     @DeleteMapping("/delete/{id}")

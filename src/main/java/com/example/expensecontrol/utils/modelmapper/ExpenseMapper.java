@@ -7,8 +7,6 @@ import org.modelmapper.TypeToken;
 
 import com.example.expensecontrol.dtos.ExpenseDto;
 import com.example.expensecontrol.entities.Expense;
-
-import ch.qos.logback.core.subst.Token;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -22,9 +20,8 @@ public class ExpenseMapper {
         return new ModelMapper().map(expense, ExpenseDto.class);
     }
 
-    public static List<ExpenseDto> listExpenseToDto(List<Expense> listExpense){
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(listExpense, new TypeToken<List<ExpenseDto>>() {}.getType());
-    }
+    //public static List<ExpenseDto> listExpenseToDto(List<Expense> listExpense, ModelMapper modelMapper){
+     //   return modelMapper.map(listExpense, new TypeToken<List<ExpenseDto>>() {}.getType());
+    //}
 
 }
