@@ -7,6 +7,8 @@ import com.example.expensecontrol.dtos.ExpenseDto;
 import com.example.expensecontrol.service.ExpenseService;
 import com.example.expensecontrol.utils.modelmapper.ExpenseMapper;
 
+import jakarta.validation.Valid;
+
 import com.example.expensecontrol.entities.Expense;
 
 
@@ -32,32 +34,26 @@ public class ExpenseController {
     private final ExpenseService expenseService;
 
     @GetMapping("/findall")
-    public ResponseEntity<List<Expense>> findall() {
+    public ResponseEntity<List<ExpenseDto>> findall() {
         List<Expense> lista = expenseService.findall();
+        List<ExpenseDto> listaDto = ExpenseMapper.listExpenseToDto(lista);
        
-        return ResponseEntity.ok(lista);
+        return ResponseEntity.ok(listaDto);
 
     }
     @PostMapping("/save")
-    public ResponseEntity<ExpenseDto> save(@RequestBody ExpenseDto expenseDto) {
+    public ResponseEntity<ExpenseDto> save(@Valid @RequestBody ExpenseDto expenseDto) {
         Expense expense =  ExpenseMapper.toExpense(expenseDto);
-
-        expense.setCategory(expenseDto.getCategoria());
         expenseService.save(expense);
         
         return ResponseEntity.ok(ExpenseMapper.toDto(expense));
     }
     @PutMapping("update/{id}")
-    public ResponseEntity<ExpenseDto> update(@PathVariable Long id,@RequestBody ExpenseDto dto){
+    public ResponseEntity<ExpenseDto> update(@Valid @PathVariable Long id,@RequestBody ExpenseDto dto){
 
         Expense expense = ExpenseMapper.toExpense(dto);
-        
-        expense.setCategory(dto.getCategoria());
-
          expense = expenseService.update(expense,id);
         ExpenseDto responseDto = ExpenseMapper.toDto(expense);
-
-         responseDto.setCategoria(expense.getCategory());
 
         return ResponseEntity.ok(responseDto);
       

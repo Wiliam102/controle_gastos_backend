@@ -26,7 +26,7 @@ public class ExpenseDto {
     @NotBlank(message = "A descricao não pode ser nula")
     private String description;
     @NotNull(message = "A categoria não pode ser vazia")
-    private Category categoria;
+    private Category category;
 
 
     public ExpenseDto(){}

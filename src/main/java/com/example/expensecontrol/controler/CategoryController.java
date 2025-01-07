@@ -16,6 +16,7 @@ import com.example.expensecontrol.dtos.CategoryDto;
 import com.example.expensecontrol.service.CategoryService;
 import com.example.expensecontrol.utils.modelmapper.CategoryMapper;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto dto){
+    public ResponseEntity<CategoryDto> save(@Valid @RequestBody CategoryDto dto){
         Category category = CategoryMapper.toCategory(dto);
         categoryService.save(category);
 
