@@ -9,6 +9,6 @@ import com.example.expensecontrol.entities.Expense;
 
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense,Long> {
-    boolean existsByDescriptionAndDate(String desription, LocalDate date);
+    boolean existsByDescriptionAndDate(String description, LocalDate date);
 
 }
