@@ -7,6 +7,7 @@ import com.example.expensecontrol.entities.Category;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class ExpenseDto {
     @NotNull(message = "O valor não pode ser nulo")
     @DecimalMin(value = "1.0", message = "O valor precisa ser maior ou igual a 1.")
     private Double amount;
-    @NotBlank(message = "A data não pode ser vazia")
+    @PastOrPresent(message = "A data não pode ser no futuro")
     @NotNull(message = "A data não pode ser nula")
     private LocalDate date;
     @NotBlank(message = "A descricao não pode ser nula")
