@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CategoryDto {
+    Long id;
     @NotNull(message = "A categoria não pode ser nula.")
     @NotBlank(message = "A categoria não pode ser vazia.")
     private String name;
