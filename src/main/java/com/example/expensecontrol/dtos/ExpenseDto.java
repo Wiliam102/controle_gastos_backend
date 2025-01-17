@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ExpenseDto {
-    
+    private Long id;
     @NotNull(message = "O valor não pode ser nulo")
     @DecimalMin(value = "1.0", message = "O valor precisa ser maior ou igual a 1.")
     private Double amount;
